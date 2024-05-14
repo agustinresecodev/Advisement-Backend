@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm"
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, OneToMany } from "typeorm"
 import {Role} from "./Role"
+import { Case } from "./Case";
 
 
 @Entity('users')
@@ -29,4 +30,8 @@ export class User extends BaseEntity {
     @ManyToOne(()=>Role,(role)=>role.user)
     @JoinColumn({name:"role_id"})
     role!:Role;
+
+    //Relacion 1:N con tabla cases
+   @OneToMany(() => Case, (cases) => cases.user)
+    case!: Case[];
 }
