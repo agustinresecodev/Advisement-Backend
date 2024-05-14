@@ -15,20 +15,17 @@ export class CreateCasesTable1715688029889 implements MigrationInterface {
                         generationStrategy:"increment"
                     },
                     {
-                        name:"client_id",
-                        type:"int",
-                        isNullable:false
-
-                    },
-                    {
-                        name:"technician_id",
-                        type:"int",
-                        isNullable:false
-                    },
-                    {
                         name:"description",
                         type:"varchar",
                         length:"255",
+                    },
+                    {
+                        name:"client_id",
+                        type:"int"
+                    },
+                    {
+                        name:"technician_id",
+                        type:"int"
                     },
                     {
                         name:"status",
@@ -54,6 +51,18 @@ export class CreateCasesTable1715688029889 implements MigrationInterface {
                         name:"updated_at",
                         type:"timestamp",
                         default:"now()"
+                    }
+                ],
+                foreignKeys:[
+                    {
+                        columnNames:["client_id"],
+                        referencedColumnNames:["id"],
+                        referencedTableName:"clients"
+                    },
+                    {
+                        columnNames:["technician_id"],
+                        referencedColumnNames:["id"],
+                        referencedTableName:"users"
                     }
                 ]
             })

@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Case } from "./Case";
 
-@Entity()
+@Entity("clients")
 export class Client extends BaseEntity {
 
     @PrimaryGeneratedColumn()

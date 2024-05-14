@@ -34,7 +34,7 @@ export class CreateUsersTable1715688019313 implements MigrationInterface {
           {
             name: "phone",
             type: "varchar",
-            length: "20",
+            length: "255",
             isNullable: false,
           },
           {
@@ -52,6 +52,14 @@ export class CreateUsersTable1715688019313 implements MigrationInterface {
             name: "role_id",
             type: "int",
             isNullable: false,
+          },
+        ],
+        foreignKeys: [
+          {
+            columnNames: ["role_id"],
+            referencedColumnNames: ["id"],
+            referencedTableName: "roles",
+            onDelete: "CASCADE",
           },
         ],
       })
