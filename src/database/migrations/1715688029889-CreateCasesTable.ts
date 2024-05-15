@@ -57,12 +57,16 @@ export class CreateCasesTable1715688029889 implements MigrationInterface {
                     {
                         columnNames:["client_id"],
                         referencedColumnNames:["id"],
-                        referencedTableName:"clients"
+                        referencedTableName:"clients",
+                        onDelete: "CASCADE",
+                        onUpdate: "CASCADE",
                     },
                     {
                         columnNames:["technician_id"],
                         referencedColumnNames:["id"],
-                        referencedTableName:"users"
+                        referencedTableName:"users",
+                        onDelete: "CASCADE",
+                        onUpdate: "CASCADE",
                     }
                 ]
             })
