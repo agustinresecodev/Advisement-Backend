@@ -59,6 +59,36 @@ export const userController = {
         }
     },
 
+    //Edit user Profile
+    async editUserProfile(req: Request, res: Response) {
+        try {
+            const userId = req.tokenData?.userId;
+            const user = await User.findOne({ where: { id: userId } });
+            
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+
+            const { firstName, lastName, email, phone } = req.body;
+            
+            if (!firstName && !lastName && !email && !phone) {
+                return res.status(400).json({ message: "Nothing to update" });
+            }
+
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.email = email;
+            user.phone = phone;
+
+
+            await user.save();
+            res.status(200).json({ message: "User updated successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Internal server error" });
+        }
+    },
+
     
 
 

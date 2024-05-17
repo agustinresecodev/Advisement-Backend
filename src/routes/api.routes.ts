@@ -5,6 +5,7 @@ import authRoutes from "./auth.routes";
 import baseRoutes from "./base.routes";
 import clientsRoutes from "./clients.routes";
 import userRoutes from "./user.routes";
+import casesRoutes from "./cases.routes";
 
 
 const router = express.Router();
@@ -21,6 +22,9 @@ router.use('/clients',clientsRoutes);
 
 //USER ROUTES
 router.use('/users',userRoutes);
+
+//CASES ROUTES
+router.use('/cases',casesRoutes);
 
 
 
