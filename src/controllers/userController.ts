@@ -89,7 +89,23 @@ export const userController = {
         }
     },
 
-    
+    //get all users with role tech
+    async getAllTechs(req: Request, res: Response) {
+        try {
+            const users = await User.find({
+                relations:{
+                    role:true
+                },
+                where: { 
+                    
+                    role:{name:"technicians"}}
+            });
+            res.status(200).json(users);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Internal server error ups" });
+        }
+    }
 
 
 

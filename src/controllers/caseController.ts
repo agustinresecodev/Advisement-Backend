@@ -79,5 +79,32 @@ export const caseController = {
             console.error(error);
             res.status(500).json({ message: "Internal server error" });
         }
+    },
+
+    //Edit case
+    async editCase(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const edit = await Case.findOne({ where: { id: id } });
+            const { status, description, initialDate, finalDate, userId, clientId } = req.body;
+
+            if (!edit) {
+                return res.status(404).json({ message: "Case not found" });
+            }
+
+            edit.status = status;
+            edit.description = description;
+            edit.initialDate = initialDate;
+            edit.finalDate = finalDate;
+            edit.user = userId;
+            edit.client = clientId;
+            edit.updatedAt = new Date();
+            edit.save();
+
+            res.status(200).json(edit);
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
     }
 };
