@@ -9,5 +9,7 @@ const router = express.Router();
 router.get('/',authMiddleware, caseController.getAllCases);
 router.get('/:id',authMiddleware, caseController.getCaseById);
 router.put('/:id',authMiddleware, caseController.editCase);
+router.delete('/:id',authMiddleware, caseController.deleteCase);
+
 
 export default router;

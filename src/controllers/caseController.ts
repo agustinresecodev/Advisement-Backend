@@ -106,5 +106,23 @@ export const caseController = {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });
     }
+    },
+
+    //Delete case
+    async deleteCase(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const deleteCase = await Case.findOne({ where: { id: id } });
+
+            if (!deleteCase) {
+                return res.status(404).json({ message: "Case not found" });
+            }
+
+            deleteCase.remove();
+            res.status(200).json({ message: "Case deleted" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Internal server error" });
+        }
     }
 };

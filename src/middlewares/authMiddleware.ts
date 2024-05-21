@@ -13,7 +13,8 @@ export const authMiddleware = (
     
     //if there is no token, return a 401 status
     if(!token){
-        res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({message: "Unauthorized NO TOKEN FOUND"});
+        
         return;
     }
 
@@ -23,6 +24,7 @@ export const authMiddleware = (
             token, 
             process.env.JWT_SECRET as string
             ) as JwtPayload;
+            
 
         //add the token data to the request    
         req.tokenData = {
@@ -37,7 +39,8 @@ export const authMiddleware = (
         next();
         
     }catch(error){
-        res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({message: "Unauthorized INVALID TOKEN"});
+        
         
         return;
     }
