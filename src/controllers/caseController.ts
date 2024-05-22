@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Case } from "../models/Case";
+import jwt from "jsonwebtoken";
+import { TokenData } from "../types/types";
 
 export const caseController = {
     //GET ALL CASES
@@ -92,7 +94,8 @@ export const caseController = {
                 return res.status(404).json({ message: "Case not found" });
             }
 
-            edit.status = status;
+            
+            edit.status = Boolean(status);
             edit.description = description;
             edit.initialDate = initialDate;
             edit.finalDate = finalDate;
@@ -100,6 +103,7 @@ export const caseController = {
             edit.client = clientId;
             edit.updatedAt = new Date();
             edit.save();
+            console.log(edit);
 
             res.status(200).json(edit);
     }catch (error) {
@@ -120,6 +124,95 @@ export const caseController = {
 
             deleteCase.remove();
             res.status(200).json({ message: "Case deleted" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Internal server error" });
+        }
+    },
+
+    //Get cases By User
+    async getCasesByUser(req: Request, res: Response) {
+        try {
+            const token = req.headers.authorization;
+
+            const user_Id = req.tokenData?.userId
+            console.log(user_Id);
+            
+
+            const cases = await Case.find({
+                relations: {
+                    client: true,
+                    user: true,                        
+                },
+                select: {
+                    id: true,
+                    user: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        phone: true,
+                        isActive: true,
+                        role: {
+                            name: true
+                        }
+                    },
+                    client: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        phone: true,
+                        address: true,
+                        contactName: true,
+                    },
+                    description: true,
+                    status: true,
+                    initialDate: true,
+                    finalDate: true,
+                    createdAt: true,
+                },
+                where: { 
+                    user: {
+                        id:user_Id
+                    }
+                }  
+            }
+        )
+            res.status(200).json(cases);
+
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ message: "Internal server error" });
+            }
+        },
+
+    //Create case
+    async createCase(req: Request, res: Response) {
+        try {
+            const { description, userId, clientId } = req.body;
+            const token = req.headers.authorization;
+
+            if (!description || !userId || !clientId) {
+                console.log(req.body);
+                return res.status(400).json({ message: "Missing fields" });
+            }
+
+            const creationDate = new Date();
+            const updated = new Date();
+
+            const newCase = new Case();
+
+            newCase.description = description;
+            newCase.status = false;
+            newCase.createdAt = creationDate;
+            newCase.updatedAt = updated;
+            newCase.user = userId;
+            newCase.client = clientId;
+            
+                
+            await newCase.save();
+           
+            res.status(201).json(newCase);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: "Internal server error" });

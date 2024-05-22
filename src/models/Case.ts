@@ -20,10 +20,11 @@ export class Case extends BaseEntity {
     updatedAt!: Date;
 
     @Column({name:"initial_date"})
-    initialDate!: Date;
+    initialDate?: Date;
+    
 
     @Column({name:"final_date"})
-    finalDate!: Date;
+    finalDate?: Date;
 
 
     // Relation 1:N con tabla users
