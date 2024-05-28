@@ -5,7 +5,12 @@ export const userController = {
     //GET ALL USERS
     async getAllUsers(req: Request, res: Response) {
         try {
-            const users = await User.find();
+            const users = await User.find({
+                relations:{
+                    role:true
+                }
+            }
+            );
             res.status(200).json(users);
         } catch (error) {
             console.error(error);
@@ -105,8 +110,22 @@ export const userController = {
             console.error(error);
             res.status(500).json({ message: "Internal server error ups" });
         }
+    },
+
+    //delete user
+    async deleteUser(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const user = await User.findOne({ where: { id: id } });
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            await user.remove();
+            res.status(200).json({ message: "User deleted successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Internal server error" });
+        }
     }
-
-
 
 };
