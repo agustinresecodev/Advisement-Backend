@@ -11,7 +11,7 @@ export const clientController = {
             const clients = await Client.find();
             res.status(200).json(clients);
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({message: "Internal server error"});
         }
     },
@@ -28,7 +28,7 @@ export const clientController = {
             
             
          catch (error) {
-            console.error(error);
+            
             res.status(500).json({message: "Internal server error"});
         }
     },
@@ -53,7 +53,7 @@ export const clientController = {
                 res.status(404).json({message: "Client not found"});
             }
         }catch (error) {
-            console.error(error);
+            
             res.status(500).json({message: "Internal server error"});
         }
     },
@@ -71,7 +71,7 @@ export const clientController = {
                 res.status(404).json({message: "Client not found"});
             }
         }catch (error) {
-            console.error(error);
+            
             res.status(500).json({message: "Internal server error"});
         }
     },
@@ -89,7 +89,7 @@ export const clientController = {
             await client.save();
             res.status(201).json({message: "Client created successfully"});
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({message: "Internal server error"});
         }
     }

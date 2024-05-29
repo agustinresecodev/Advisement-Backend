@@ -38,7 +38,7 @@ export const caseController = {
             );
             res.status(200).json(cases);
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     },
@@ -78,7 +78,7 @@ export const caseController = {
             });
             res.status(200).json(cases);
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     },
@@ -107,7 +107,7 @@ export const caseController = {
 
             res.status(200).json(edit);
     }catch (error) {
-        console.error(error);
+        
         res.status(500).json({ message: "Internal server error" });
     }
     },
@@ -125,7 +125,7 @@ export const caseController = {
             deleteCase.remove();
             res.status(200).json({ message: "Case deleted" });
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     },
@@ -136,7 +136,7 @@ export const caseController = {
             const token = req.headers.authorization;
 
             const user_Id = req.tokenData?.userId
-            console.log(user_Id);
+            
             
 
             const cases = await Case.find({
@@ -193,7 +193,7 @@ export const caseController = {
             const token = req.headers.authorization;
 
             if (!description || !userId || !clientId) {
-                console.log(req.body);
+                
                 return res.status(400).json({ message: "Missing fields" });
             }
 
@@ -214,7 +214,7 @@ export const caseController = {
            
             res.status(201).json(newCase);
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     }

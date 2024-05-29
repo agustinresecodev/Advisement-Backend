@@ -44,7 +44,7 @@ export const userController = {
             
         res.json(user).status(200);
         } catch (error) {
-            console.log(req)
+            
           res.status(500).json({ message: "Something went wrong" });
         }
       },
@@ -59,7 +59,7 @@ export const userController = {
             });
             res.status(200).json(user);
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     },
@@ -89,7 +89,7 @@ export const userController = {
             await user.save();
             res.status(200).json({ message: "User updated successfully" });
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     },
@@ -107,7 +107,7 @@ export const userController = {
             });
             res.status(200).json(users);
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error ups" });
         }
     },
@@ -123,7 +123,7 @@ export const userController = {
             await user.remove();
             res.status(200).json({ message: "User deleted successfully" });
         } catch (error) {
-            console.error(error);
+            
             res.status(500).json({ message: "Internal server error" });
         }
     }
