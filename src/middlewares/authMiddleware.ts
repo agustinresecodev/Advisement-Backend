@@ -10,10 +10,12 @@ export const authMiddleware = (
     
     //split the token from the header    
     const token = req.headers.authorization?.split(" ")[1];
+    console.log(req.headers);
     
     //if there is no token, return a 401 status
     if(!token){
         res.status(401).json({message: "Unauthorized NO TOKEN FOUND"});
+        console.log("NO TOKEN FOUND");
         
         return;
     }
@@ -40,6 +42,7 @@ export const authMiddleware = (
         
     }catch(error){
         res.status(401).json({message: "Unauthorized INVALID TOKEN"});
+        console.log("INVALID TOKEN2");
         
         
         return;

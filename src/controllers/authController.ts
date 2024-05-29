@@ -123,8 +123,10 @@ export const authController= {
             res.status(200).json({ message:"Login Succesfully",token: token }).status(200);
 
         }catch(error){
+            console.log(error);
             //Return error message
             res.status(500).json({message: "Internal server error"});
+            
         }
 
     }

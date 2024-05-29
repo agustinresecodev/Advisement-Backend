@@ -9,7 +9,7 @@ const router = express.Router();
 //ROUTES
 router.get('/',authMiddleware, clientController.getAllClients);
 router.get('/:id',authMiddleware, clientController.getClientById);
-router.put('/:id',authMiddleware,authorizeMiddleware(['administration']), clientController.editClient);
+router.put('/:id',authMiddleware,authorizeMiddleware(['administration','admin']), clientController.editClient);
 router.delete('/:id',authMiddleware,authorizeMiddleware(['administration']), clientController.deleteClient);
 router.post('/',authMiddleware,authorizeMiddleware(['administration']), clientController.createClient);
 
